@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Tracker</title>
+
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+    td, th {
+        word-wrap: break-word;
+        white-space: normal;
+        vertical-align: top;
+    }
+    .notes-cell {
+        max-width: 300px;   
+        word-break: break-word;
+        white-space: pre-wrap;
+    }
+    .link-cell {
+        max-width: 200px;
+        word-break: break-all;
+    }
+    </style>
+
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark px-3">
+    <span class="navbar-brand">Exam Tracker</span>
+
+    {% if session.get("user_id") %}
+        <div>
+            <a href="/add" class="btn btn-outline-light btn-sm">Add Exam</a>
+            <a href="/logout" class="btn btn-outline-danger btn-sm">Logout</a>
+        </div>
+    {% endif %}
+</nav>
+
+<!-- FULL WIDTH CONTAINER -->
+<div class="container-fluid mt-4">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

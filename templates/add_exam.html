@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+<div class="col-md-6">
+
+<h4 class="mb-3">{{ "Edit" if exam else "Add" }} Exam</h4>
+
+<form method="post" class="card p-4 shadow-sm">
+
+    <div class="mb-3">
+        <label class="form-label">Exam Name</label>
+        <input class="form-control" name="exam_name" value="{{ exam.exam_name if exam }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Exam Type</label>
+        <input class="form-control" name="exam_type" value="{{ exam.exam_type if exam }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Exam Date</label>
+        <input type="date" class="form-control" name="exam_date" value="{{ exam.exam_date }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Application Deadline</label>
+        <input type="date" class="form-control" name="deadline" value="{{ exam.deadline }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Notes / Comments</label>
+        <textarea class="form-control" name="notes" rows="3">{{ exam.notes if exam }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Link</label>
+        <input class="form-control" name="link" value="{{ exam.link if exam }}">
+    </div>
+
+    <button class="btn btn-success">Save</button>
+
+</form>
+
+</div>
+</div>
+
+{% endblock %}

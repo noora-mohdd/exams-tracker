@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0 align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Exam Name</th>
+                    <th>Exam Type</th>
+                    <th>Days Left</th>
+                    <th>Application Status</th>
+                    <th>Notes</th>
+                    <th>Link</th>
+                    <th style="width: 160px;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for e in exams %}
+                <tr>
+                    <td><strong>{{ e.exam_name }}</strong></td>
+
+                    <td>{{ e.exam_type }}</td>
+
+                    <td>
+                        {% if e.days_left >= 0 %}
+                            {{ e.days_left }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if e.status == "Application Open" %}
+                            <span class="badge bg-success">Open</span>
+                        {% elif e.status == "Application Closed" %}
+                            <span class="badge bg-danger">Closed</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Exam Over</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if e.notes %}
+                            {{ e.notes }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if e.link %}
+                            <a href="{{ e.link }}" target="_blank">{{ e.link[:30] }}...</a>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="/edit/{{ e.id }}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="/delete/{{ e.id }}"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Delete this exam?')">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

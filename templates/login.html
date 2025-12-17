@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+<div class="col-md-4">
+
+<form method="post" class="card p-4 shadow-sm">
+    <h4 class="mb-3 text-center">Login</h4>
+
+    <input class="form-control mb-3" name="username" placeholder="Username">
+    <input type="password" class="form-control mb-3" name="password" placeholder="Password">
+
+    <button class="btn btn-primary w-100">Login</button>
+
+    <div class="text-center mt-2">
+        <a href="/register">Create account</a>
+    </div>
+</form>
+
+</div>
+</div>
+
+{% endblock %}
