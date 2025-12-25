@@ -4,15 +4,17 @@ from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-
+os.makedirs("instance", exist_ok=True)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-fallback-key")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///exams.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///instance/exams.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+with app.app_context():
+    db.create_all()
 #models
 
 class User(db.Model):
@@ -151,11 +153,6 @@ def delete_exam(id):
         db.session.commit()
 
     return redirect(url_for("index"))
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 
 
 # ---------- RUN ----------
