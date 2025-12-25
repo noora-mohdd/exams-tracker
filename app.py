@@ -1,10 +1,11 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
 
 os.makedirs("instance", exist_ok=True)
+
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-fallback-key")
 
@@ -13,8 +14,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
 #models
 
 class User(db.Model):
@@ -33,6 +32,10 @@ class Exam(db.Model):
     deadline=db.Column(db.Date, nullable=False)
     notes=db.Column(db.Text)
     link=db.Column(db.String(500))
+
+
+with app.app_context():
+    db.create_all()
 
 #routes
 @app.route("/register", methods=["GET", "POST"])
