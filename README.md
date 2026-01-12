@@ -1,7 +1,7 @@
 # 📘 Exam Tracker
 
 A simple web-based Exam Tracker built to help users manage and keep track of exams efficiently. 
-The application allows users to add, view, and organize exam-related information through a clean and responsive interface.
+The application allows users to add, view, and edit exam-related information through a clean and responsive interface.
 
 
 ## What It Does
