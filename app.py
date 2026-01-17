@@ -4,9 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
-os.makedirs("instance", exist_ok=True)
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-fallback-key")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///instance/exams.db"
@@ -19,7 +18,7 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(80), nullable=False, unique=True)
-    password=db.Column(db.String(50), nullable=False)
+    password=db.Column(db.String(500), nullable=False)
 
     exams=db.relationship("Exam", backref="user", lazy=True)
 
@@ -111,6 +110,9 @@ def index():
 
 @app.route("/add", methods=["GET", "POST"])
 def add_exam():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         exam = Exam(
             user_id=session["user_id"],
@@ -157,8 +159,3 @@ def delete_exam(id):
 
     return redirect(url_for("index"))
 
-
-# ---------- RUN ----------
-
-if __name__ == "__main__":
-    app.run(debug=True)
